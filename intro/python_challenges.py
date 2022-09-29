@@ -121,8 +121,8 @@ def reverse_string(string):
 
 
 
-print(reverse_string('Go-to-the-store'))
-print(reverse_string('Jump-jump-for-joy'))
+# print(reverse_string('Go-to-the-store'))
+# print(reverse_string('Jump-jump-for-joy'))
 
 
 '''
@@ -161,11 +161,11 @@ def is_prime(num):
             return True
     
 
-print(is_prime(2))
-print(is_prime(29))
-print(is_prime(3))
-print(is_prime(4))
-print(is_prime(200))
+# print(is_prime(2))
+# print(is_prime(29))
+# print(is_prime(3))
+# print(is_prime(4))
+# print(is_prime(200))
 
 '''
 -----------------------------------------------------------------
@@ -199,5 +199,142 @@ def find_the_parity_outlier(list):
     
     return odd_number
 
-print(find_the_parity_outlier([2, 4, 0, 100, 4, 11, 2602, 36]))
-print(find_the_parity_outlier([160, 3, 1719, 19, 11, 13, -21]))
+# print(find_the_parity_outlier([2, 4, 0, 100, 4, 11, 2602, 36]))
+# print(find_the_parity_outlier([160, 3, 1719, 19, 11, 13, -21]))
+
+''' 29Sep22
+******************************************************************************
+Write a function intersect(list1, list2) that takes in two lists and returns a
+new list containing the elements common to both list1 and list2.
+
+Hint: use index()
+
+Examples:
+
+intersect(['a', 'b', 'c', 'd'], ['b', 'd', 'e']) => [ 'b', 'd' ]
+intersect(['a', 'b', 'c'], ['x', 'y', 'z']) => []
+*******************************************************************************/
+'''
+def intersect(list1, list2):
+    matching_arr = []
+
+    for item in list1:
+        for letter in list2:
+            if item == letter:
+                matching_arr.append(item)
+    
+    return matching_arr
+
+# print(intersect(['a', 'b', 'c', 'd'], ['b', 'd', 'e']))
+
+'''
+-----------------------------------------------------------------
+
+Prompt:
+
+- Write a function named merge_dictionaries that accepts at least two dictionaries as arguments, merges the properties of the second through n dictionaries into the first object, then finally returns the first dictionary.
+- If any dictionaries have the same property key, values from the object(s) later in the arguments list should overwrite earlier values.
+
+Examples:
+
+merge_dictionaries({}, {'a': 1});  //=> {'a': 1} (same object as first arg)
+merge_dictionaries({'a': 1, 'b': 2, 'c': 3}, {'d': 4});  //=> {'a': 1, 'b': 2, 'c': 3, 'd': 4}
+merge_dictionaries({'a': 1, 'b': 2, 'c': 3}, {'d': 4}, {'b': 22, 'd': 44});  //=> {'a': 1, 'b': 22, 'c': 3, 'd': 44}
+-----------------------------------------------------------------
+'''
+
+def merge_dictionaries(dict1, dict2):
+    
+    dict1.update(dict2)
+    return dict1
+
+# print(merge_dictionaries({'a': 1, 'b': 2, 'c': 3}, {'d': 4}))
+# print(merge_dictionaries({'a': 1, 'b': 2, 'c': 3}, {'d': 4}, {'b': 22, 'd': 44}))
+
+#! Jared's answer to learn from
+def merge_dictionaries1(*args):
+    new_dict = {}
+    
+    for dict in args:
+        for key in dict.keys():
+            new_dict[key] = dict[key]
+    
+    return new_dict
+
+# print(merge_dictionaries1({'a': 1, 'b': 2, 'c': 3}, {'d': 4}))
+# print(merge_dictionaries1({'a': 1, 'b': 2, 'c': 3}, {'d': 4}, {'b': 22, 'd': 44}))
+
+#! Jordan's answer to what I wanted to do
+def merge_dictionaries(dict1, *other_dicts):
+    for dict in other_dicts:
+        dict1.update(dict)
+    return dict1
+'''
+-----------------------------------------------------------------
+
+
+Prompt:
+
+- Write a function named prime_factors that accepts a whole number greater than one (1) as an argument and returns an list of that argument's prime factors.
+- The prime factors of a whole number are the prime numbers that, when multiplied together, equals the whole number.
+- If the argument provided is not greater than 1, or not a whole number, then primeFactors should return an empty list.
+
+Examples:
+
+prime_factors(2) //=> [2]
+prime_factors(3) //=> [3]
+prime_factors(4) //=> [2, 2]
+prime_factors(18) //=> [2, 3, 3]
+prime_factors(29) //=> [29]
+prime_factors(105) //=> [3, 5, 7]
+prime_factors(200) //=> [2, 2, 2, 5, 5]
+
+-----------------------------------------------------------------
+'''
+
+def prime_factors(num):
+    arr =[]
+    
+    if num <= 0:
+        return None
+    
+    for i in range(0, num):
+        if i == 0 or i == 1:
+            continue
+        if i == 2:
+            arr.append(i)
+        
+        if num % i == 0:
+            arr.append(i)
+
+    return arr
+
+
+#! googled answer refactored to return a list
+import math
+
+
+def primeFactors(n):
+    list1 = []
+    while n % 2 == 0:
+        list1.append(2)
+        n = n / 2
+    # n reduces to become odd
+    for i in range(3, int(math.sqrt(n)) + 1, 2):
+        # while i divides n
+        while n % i == 0:
+            list1.append(i)
+            n = n / i
+    # if n is a prime
+    if n > 2:
+        list1.append(n)
+
+    return list1
+
+print(primeFactors(2))
+print(primeFactors(3))
+print(primeFactors(4))
+print(primeFactors(18))
+print(primeFactors(29))
+print(primeFactors(105))
+print(primeFactors(200))

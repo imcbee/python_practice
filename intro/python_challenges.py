@@ -376,6 +376,14 @@ def create_phone_number2(nums):
 
 print(create_phone_number2([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]))
 
+#! Python Method
+from colormap import rgb2hex
+from colormap import hex2rgb
+
+print(rgb2hex(255, 255, 255))
+print(hex2rgb('#FFFFFF'))
+
+
 ## 2. **RGB To Hex Conversion**
 # The RGB function is incomplete. Complete it so that passing in RGB decimal values will result in a hexadecimal representation being returned. Valid decimal values for RGB are 0 - 255. Any values that fall out of that range must be rounded to the closest valid value.
 

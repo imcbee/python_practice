@@ -143,6 +143,7 @@ is_prime(200) //=> false
 -----------------------------------------------------------------*/
 '''
 import math
+import string
 
 def is_prime(num):
     if num == 2 or num == 3:
@@ -331,10 +332,114 @@ def primeFactors(n):
 
     return list1
 
-print(primeFactors(2))
-print(primeFactors(3))
-print(primeFactors(4))
-print(primeFactors(18))
-print(primeFactors(29))
-print(primeFactors(105))
-print(primeFactors(200))
+# print(primeFactors(2))
+# print(primeFactors(3))
+# print(primeFactors(4))
+# print(primeFactors(18))
+# print(primeFactors(29))
+# print(primeFactors(105))
+# print(primeFactors(200))
+
+
+## 30Sep22 --- 1. **Create Phone Number**
+# Write a function that accepts an array of 10 integers (between 0 and 9), that returns a string of those numbers in the form of a phone number.
+
+# create_phone_number([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]) // => returns "(123) 456-7890"
+
+def create_phone_number(arr):
+    if len(arr) != 10:
+        return "Not a valid phone number"
+    
+    arr.insert(0, "(")
+    arr.insert(4, ")")
+    arr.insert(5, " ")
+    arr.insert(9, '-')
+    
+    new_list =[]
+    for num in arr:
+        new_list.append(str(num))
+    
+    return "".join(new_list)
+
+print(create_phone_number([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]))
+
+#! Troy's Answer
+import re
+def create_phone_number2(nums):
+    if len(nums) != 10:
+        return "Not a valid phone number"
+    stringify_nums = ''
+    for num in nums:
+        stringify_nums += str(num)
+    
+    return re.sub(r'(\d{3})(\d{3})(\d{4})', r'(\1) \2-\3', stringify_nums)
+
+print(create_phone_number2([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]))
+
+## 2. **RGB To Hex Conversion**
+# The RGB function is incomplete. Complete it so that passing in RGB decimal values will result in a hexadecimal representation being returned. Valid decimal values for RGB are 0 - 255. Any values that fall out of that range must be rounded to the closest valid value.
+
+# **Note**: Your answer should always be 6 characters long, the shorthand with 3 will not work here.
+
+# rgb(255, 255, 255) // returns FFFFFF
+# rgb(255, 255, 300) // returns FFFFFF
+# rgb(0,0,0) // returns 000000
+# rgb(148, 0, 211) // returns 9400D3
+
+def rgb(*args):
+    hex = []
+    
+    for num in args:
+        first = num // 16
+        second = num % 16
+        if first == 10: first = "A"
+        elif first == 11: first = "B"
+        elif first == 12: first = "C"
+        elif first == 13: first = "D"
+        elif first == 14: first = "E"
+        elif first == 15: first = "F"
+        else: first = str(first)
+        if second == 10: second = "A"
+        elif second == 11: second = "B"
+        elif second == 12: second = "C"
+        elif second == 13: second = "D"
+        elif second == 14: second = "E"
+        elif second == 15: second = "F"
+        else: second = str(second)
+        hex.append(first)
+        hex.append(second)
+    
+    return "".join(str(x) for x in hex)
+
+print(rgb(255, 255, 255))
+
+#! Eric's Answer
+def rgb2(r, g, b):
+    double_digits = {
+        10: "A",
+        11: "B",
+        12: "C",
+        13: "D",
+        14: "E",
+        15: "F"
+    }
+    hex_conversion= ''
+    arr = [r,g,b]
+    for num in arr:
+        if num > 255:
+            num = 255
+        elif num < 0:
+            num =0
+        whole_number = num //16
+        remainder = num % 16
+        if whole_number < 10:
+            hex_conversion += str(whole_number)
+        else:
+            hex_conversion += double_digits[whole_number]
+        if remainder < 10:
+            hex_conversion += str(remainder)
+        else:
+            hex_conversion += double_digits[remainder]
+    return hex_conversion
+
+print(rgb2(255, 255, 255))
